@@ -1,0 +1,55 @@
+Food_Item,Category,Diet,Calories_per_100g,Protein_g,Fat_g,Carbs_g
+Oats,Whole Grain,vegan,389,16.9,6.9,66.3
+Quinoa,Whole Grain,vegan,368,14.1,6.1,64.2
+Brown Rice,Whole Grain,vegan,111,2.6,0.9,23.0
+Ragi,Whole Grain,vegan,336,7.3,1.3,72.0
+Jowar,Whole Grain,vegan,329,10.4,3.1,72.6
+Bajra,Whole Grain,vegan,378,11.0,4.2,67.0
+Barley,Whole Grain,vegan,354,12.5,2.3,73.5
+Moong Dal,Dal,vegan,347,24.0,1.2,63.0
+Masoor Dal,Dal,vegan,352,24.6,1.1,63.4
+Toor Dal,Dal,vegan,343,22.0,1.7,62.7
+Chana Dal,Dal,vegan,364,22.0,6.0,61.0
+Urad Dal,Dal,vegan,341,25.0,1.6,59.0
+Rajma,Legume,vegan,333,24.0,0.8,60.0
+Chickpeas,Legume,vegan,364,19.3,6.0,60.7
+Black Chana,Legume,vegan,360,20.5,5.0,60.0
+Soybeans,Legume,vegan,446,36.5,19.9,30.2
+Tofu,Protein,vegan,76,8.0,4.8,1.9
+Edamame,Protein,vegan,121,11.9,5.2,8.9
+Green Peas,Vegetable,vegan,81,5.4,0.4,14.5
+Spinach,Vegetable,vegan,23,2.9,0.4,3.6
+Broccoli,Vegetable,vegan,34,2.8,0.4,7.0
+Cauliflower,Vegetable,vegan,25,1.9,0.3,5.0
+Carrot,Vegetable,vegan,41,0.9,0.2,9.6
+Cucumber,Vegetable,vegan,15,0.7,0.1,3.6
+Tomato,Vegetable,vegan,18,0.9,0.2,3.9
+Capsicum,Vegetable,vegan,31,1.0,0.3,6.0
+Beetroot,Vegetable,vegan,43,1.6,0.2,9.6
+Sweet Potato,Root Vegetable,vegan,86,1.6,0.1,20.1
+Apple,Fruit,vegan,52,0.3,0.2,13.8
+Banana,Fruit,vegan,89,1.1,0.3,22.8
+Orange,Fruit,vegan,47,0.9,0.1,11.8
+Guava,Fruit,vegan,68,2.6,1.0,14.3
+Papaya,Fruit,vegan,43,0.5,0.3,10.8
+Pomegranate,Fruit,vegan,83,1.7,1.2,18.7
+Almonds,Nuts,vegan,579,21.2,49.9,21.6
+Walnuts,Nuts,vegan,654,15.2,65.2,13.7
+Peanuts,Nuts,vegan,567,25.8,49.2,16.1
+Chia Seeds,Seeds,vegan,486,16.5,30.7,42.1
+Flax Seeds,Seeds,vegan,534,18.3,42.2,28.9
+Pumpkin Seeds,Seeds,vegan,559,30.2,49.1,10.7
+Greek Yogurt,Dairy,vegetarian,59,10.2,0.4,3.6
+Curd,Dairy,vegetarian,61,3.5,3.3,4.7
+Low Fat Paneer,Dairy Protein,vegetarian,145,18.3,6.0,3.4
+Low Fat Milk,Dairy,vegetarian,42,3.4,1.0,5.0
+Eggs,Protein,non_vegetarian,143,12.6,9.5,0.7
+Chicken Breast,Lean Protein,non_vegetarian,165,31.0,3.6,0.0
+Rohu Fish,Lean Protein,non_vegetarian,97,17.0,3.0,0.0
+Salmon,Lean Protein,non_vegetarian,208,20.4,13.4,0.0
+Moong Dal Chilla,Healthy Breakfast,vegan,145,7.5,2.5,23.0
+Besan Chilla,Healthy Breakfast,vegan,164,8.9,3.7,27.4
+Idli,Healthy Breakfast,vegan,146,5.0,0.7,30.0
+Sprouts Salad,Salad,vegan,85,6.5,1.0,14.0
+Mixed Vegetable Salad,Salad,vegan,45,2.0,0.4,8.5
+Dal Khichdi,Balanced Meal,vegan,125,5.0,2.2,21.0
