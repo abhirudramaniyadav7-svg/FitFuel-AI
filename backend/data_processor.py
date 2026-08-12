@@ -1,212 +1,202 @@
+import os
 import pandas as pd
 
 
 # ==================================================
-# REQUIRED DATASET COLUMNS
-# ==================================================
-
-REQUIRED_COLUMNS = [
-    "Food_Item",
-    "Category",
-    "Calories_per_100g",
-    "Protein_g",
-    "Fat_g",
-    "Carbs_g"
-]
-
-
-# ==================================================
-# LOAD FOOD DATA
+# LOAD FITFUEL FOOD DATA
 # ==================================================
 
 def load_food_data():
     """
-    Load and clean the Indian food nutrition dataset.
+    Load the FitFuel healthy-food dataset.
+
+    The CSV file must be located at:
+
+        data/fitfuel_healthy_foods_flipkart.csv
+
+    The Flipkart_Link column is preserved so that
+    app.py can display Buy on Flipkart buttons.
     """
 
-    file_path = "data/indian_food_nutrition.csv"
+    # --------------------------------------------------
+    # Find project root
+    # --------------------------------------------------
 
-    try:
+    project_root = os.path.dirname(
+        os.path.dirname(
+            os.path.abspath(__file__)
+        )
+    )
 
-        df = pd.read_csv(file_path)
+    # --------------------------------------------------
+    # New CSV path
+    # --------------------------------------------------
 
-    except FileNotFoundError:
+    csv_path = os.path.join(
+        project_root,
+        "data",
+        "fitfuel_healthy_foods_flipkart.csv"
+    )
+
+    # --------------------------------------------------
+    # Check CSV exists
+    # --------------------------------------------------
+
+    if not os.path.exists(csv_path):
 
         raise FileNotFoundError(
-            "Indian food dataset not found. "
-            "Make sure the file is located at "
-            "'data/indian_food_nutrition.csv'."
+            f"""
+Food dataset not found.
+
+Expected location:
+{csv_path}
+
+Please make sure the file:
+
+fitfuel_healthy_foods_flipkart.csv
+
+is inside the data folder.
+"""
         )
 
-
     # --------------------------------------------------
-    # Check required columns
+    # Read CSV
     # --------------------------------------------------
 
-    missing_columns = [
-        column
-        for column in REQUIRED_COLUMNS
-        if column not in df.columns
-    ]
-
-    if missing_columns:
-
-        raise ValueError(
-            f"Missing columns in dataset: "
-            f"{missing_columns}"
-        )
-
+    foods = pd.read_csv(csv_path)
 
     # --------------------------------------------------
     # Remove completely empty rows
     # --------------------------------------------------
 
-    df = df.dropna(
+    foods = foods.dropna(
         how="all"
     )
 
+    # --------------------------------------------------
+    # Clean column names
+    # --------------------------------------------------
+
+    foods.columns = (
+        foods.columns
+        .astype(str)
+        .str.strip()
+    )
 
     # --------------------------------------------------
-    # Convert nutrition columns to numeric
+    # Required columns
     # --------------------------------------------------
 
-    numeric_columns = [
+    required_columns = [
+        "Food_Item",
+        "Category",
+        "Diet",
+        "Calories_per_100g",
+        "Protein_g",
+        "Fat_g",
+        "Carbs_g",
+        "Flipkart_Link"
+    ]
+
+    # --------------------------------------------------
+    # Check columns
+    # --------------------------------------------------
+
+    missing_columns = [
+        column
+        for column in required_columns
+        if column not in foods.columns
+    ]
+
+    if missing_columns:
+
+        raise ValueError(
+            "The CSV is missing these required columns: "
+            + ", ".join(missing_columns)
+        )
+
+    # --------------------------------------------------
+    # Convert nutrition columns to numbers
+    # --------------------------------------------------
+
+    nutrition_columns = [
         "Calories_per_100g",
         "Protein_g",
         "Fat_g",
         "Carbs_g"
     ]
 
-    for column in numeric_columns:
+    for column in nutrition_columns:
 
-        df[column] = pd.to_numeric(
-            df[column],
+        foods[column] = pd.to_numeric(
+            foods[column],
             errors="coerce"
         )
 
-
     # --------------------------------------------------
-    # Remove rows with missing important values
+    # Remove foods with invalid nutrition data
     # --------------------------------------------------
 
-    df = df.dropna(
-        subset=[
-            "Food_Item",
-            "Calories_per_100g",
-            "Protein_g",
-            "Fat_g",
-            "Carbs_g"
-        ]
+    foods = foods.dropna(
+        subset=nutrition_columns
     )
-
-
-    # --------------------------------------------------
-    # Remove impossible nutrition values
-    # --------------------------------------------------
-
-    df = df[
-        (df["Calories_per_100g"] >= 0)
-        & (df["Protein_g"] >= 0)
-        & (df["Fat_g"] >= 0)
-        & (df["Carbs_g"] >= 0)
-    ]
-
 
     # --------------------------------------------------
     # Clean food names
     # --------------------------------------------------
 
-    df["Food_Item"] = (
-        df["Food_Item"]
+    foods["Food_Item"] = (
+        foods["Food_Item"]
         .astype(str)
         .str.strip()
     )
-
 
     # --------------------------------------------------
     # Clean category
     # --------------------------------------------------
 
-    df["Category"] = (
-        df["Category"]
+    foods["Category"] = (
+        foods["Category"]
         .astype(str)
         .str.strip()
     )
 
+    # --------------------------------------------------
+    # Clean diet
+    # --------------------------------------------------
+
+    foods["Diet"] = (
+        foods["Diet"]
+        .astype(str)
+        .str.lower()
+        .str.strip()
+    )
+
+    # --------------------------------------------------
+    # Clean Flipkart links
+    # --------------------------------------------------
+
+    foods["Flipkart_Link"] = (
+        foods["Flipkart_Link"]
+        .fillna("")
+        .astype(str)
+        .str.strip()
+    )
 
     # --------------------------------------------------
     # Remove duplicate foods
     # --------------------------------------------------
 
-    df = df.drop_duplicates(
+    foods = foods.drop_duplicates(
         subset=["Food_Item"]
     )
-
 
     # --------------------------------------------------
     # Reset index
     # --------------------------------------------------
 
-    df = df.reset_index(
+    foods = foods.reset_index(
         drop=True
     )
 
-
-    return df
-
-
-# ==================================================
-# FILTER BY CATEGORY
-# ==================================================
-
-def filter_foods_by_category(
-    df,
-    category
-):
-    """
-    Filter foods according to category.
-    """
-
-    if not category:
-        return df.copy()
-
-    filtered_df = df[
-        df["Category"]
-        .astype(str)
-        .str.lower()
-        .str.strip()
-        == category.lower().strip()
-    ]
-
-    return filtered_df
-
-
-# ==================================================
-# GET DATASET SUMMARY
-# ==================================================
-
-def get_food_data_summary(df):
-    """
-    Return useful information about the food dataset.
-    """
-
-    return {
-        "total_foods": len(df),
-        "categories": df["Category"].nunique(),
-        "average_calories": round(
-            df["Calories_per_100g"].mean(),
-            2
-        ),
-        "average_protein": round(
-            df["Protein_g"].mean(),
-            2
-        ),
-        "average_fat": round(
-            df["Fat_g"].mean(),
-            2
-        ),
-        "average_carbs": round(
-            df["Carbs_g"].mean(),
-            2
-        )
-    }
+    return foods
