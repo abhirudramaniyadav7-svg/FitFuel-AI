@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 
 from backend.calculations import create_nutrition_profile
@@ -29,53 +30,9 @@ st.markdown(
     """
     <style>
 
-    /* ==============================================
-       MAIN APP BACKGROUND
-       ============================================== */
-
     .stApp {
         background-color: #f5f7f9;
     }
-
-
-    /* ==============================================
-       DUMBBELL WATERMARK
-       ============================================== */
-
-    .dumbbell-watermark {
-        position: fixed;
-        right: 4%;
-        bottom: 8%;
-        font-size: 180px;
-        opacity: 0.09;
-        z-index: 0;
-        pointer-events: none;
-        user-select: none;
-        transform: rotate(-20deg);
-    }
-
-
-    /* ==============================================
-       AUTHOR NAME
-       ============================================== */
-
-    .author-name {
-        position: fixed;
-        right: 18px;
-        bottom: 10px;
-        font-size: 12px;
-        font-weight: 500;
-        color: #555555;
-        opacity: 0.55;
-        z-index: 9999;
-        pointer-events: none;
-        user-select: none;
-    }
-
-
-    /* ==============================================
-       MAIN TITLE
-       ============================================== */
 
     .main-title {
         font-size: 48px;
@@ -84,22 +41,12 @@ st.markdown(
         margin-bottom: 5px;
     }
 
-
-    /* ==============================================
-       SUBTITLE
-       ============================================== */
-
     .subtitle {
         text-align: center;
         font-size: 18px;
         color: #666666;
         margin-bottom: 35px;
     }
-
-
-    /* ==============================================
-       SECTION TITLE
-       ============================================== */
 
     .section-title {
         font-size: 28px;
@@ -108,56 +55,14 @@ st.markdown(
         margin-bottom: 15px;
     }
 
-
-    /* ==============================================
-       METRIC CARD
-       ============================================== */
-
-    .metric-card {
-        background: white;
-        padding: 20px;
-        border-radius: 15px;
-        text-align: center;
-
-        box-shadow:
-            0 2px 10px rgba(0, 0, 0, 0.08);
-
-        margin-bottom: 15px;
-    }
-
-
-    .metric-title {
-        font-size: 15px;
-        color: #777777;
-    }
-
-
-    .metric-value {
-        font-size: 28px;
-        font-weight: 700;
-        margin-top: 5px;
-    }
-
-
-    /* ==============================================
-       MEAL CARD
-       ============================================== */
-
     .meal-card {
         background: white;
-
         padding: 20px;
-
         border-radius: 15px;
-
-        box-shadow:
-            0 2px 10px rgba(0, 0, 0, 0.08);
-
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         margin-bottom: 15px;
-
         min-height: 220px;
     }
-
 
     .meal-title {
         font-size: 22px;
@@ -165,19 +70,9 @@ st.markdown(
         margin-bottom: 10px;
     }
 
-
-    /* ==============================================
-       SIDEBAR
-       ============================================== */
-
     section[data-testid="stSidebar"] {
         background-color: white;
     }
-
-
-    /* ==============================================
-       BUTTON
-       ============================================== */
 
     .stButton > button {
         width: 100%;
@@ -186,60 +81,51 @@ st.markdown(
         font-weight: 700;
     }
 
+    /* ----------------------------------------------
+       AUTHOR NAME
+       ---------------------------------------------- */
 
-    /* ==============================================
-       MOBILE RESPONSIVE
-       ============================================== */
+    .author-name {
+        position: fixed;
+        right: 15px;
+        bottom: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #555555;
+        opacity: 0.65;
+        z-index: 9999;
+        pointer-events: none;
+    }
 
-    @media (max-width: 768px) {
+    /* ----------------------------------------------
+       DARK DUMBBELL WATERMARK
+       ---------------------------------------------- */
 
-        .main-title {
-            font-size: 34px;
-        }
-
-        .subtitle {
-            font-size: 15px;
-        }
-
-        .section-title {
-            font-size: 23px;
-        }
-
-        .dumbbell-watermark {
-            font-size: 110px;
-            right: 2%;
-            bottom: 7%;
-            opacity: 0.09;
-        }
-
-        .author-name {
-            font-size: 10px;
-            right: 10px;
-            bottom: 6px;
-        }
-
+    .dumbbell-watermark {
+        position: fixed;
+        right: 25px;
+        bottom: 35px;
+        font-size: 90px;
+        color: #333333;
+        opacity: 0.035;
+        z-index: 0;
+        pointer-events: none;
+        user-select: none;
     }
 
     </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
-    <!-- =========================================
-         DUMBBELL WATERMARK
-         ========================================= -->
+# ==================================================
+# BACKGROUND WATERMARK
+# ==================================================
 
-    <div class="dumbbell-watermark">
-        🏋️
-    </div>
-
-
-    <!-- =========================================
-         AUTHOR NAME
-         ========================================= -->
-
-    <div class="author-name">
-        Abhirudra Mani Yadav
-    </div>
-
+st.markdown(
+    """
+    <div class="dumbbell-watermark">🏋️</div>
     """,
     unsafe_allow_html=True
 )
@@ -250,7 +136,6 @@ st.markdown(
 # ==================================================
 
 try:
-
     foods = load_food_data()
 
 except Exception as e:
@@ -287,7 +172,6 @@ with st.sidebar:
 
     st.header("👤 Your Profile")
 
-
     weight = st.number_input(
         "Weight (kg)",
         min_value=20.0,
@@ -295,7 +179,6 @@ with st.sidebar:
         value=70.0,
         step=0.5
     )
-
 
     height = st.number_input(
         "Height (cm)",
@@ -305,7 +188,6 @@ with st.sidebar:
         step=1.0
     )
 
-
     age = st.number_input(
         "Age",
         min_value=10,
@@ -314,7 +196,6 @@ with st.sidebar:
         step=1
     )
 
-
     gender = st.selectbox(
         "Gender",
         [
@@ -322,7 +203,6 @@ with st.sidebar:
             "female"
         ]
     )
-
 
     activity = st.selectbox(
         "Activity Level",
@@ -335,7 +215,6 @@ with st.sidebar:
         ]
     )
 
-
     goal = st.selectbox(
         "Goal",
         [
@@ -344,7 +223,6 @@ with st.sidebar:
             "muscle_gain"
         ]
     )
-
 
     diet_preference = st.selectbox(
         "Diet Preference",
@@ -355,9 +233,7 @@ with st.sidebar:
         ]
     )
 
-
     st.divider()
-
 
     calculate = st.button(
         "🚀 Generate My Plan",
@@ -412,98 +288,42 @@ if calculate:
     )
 
 
+    # ==================================================
+    # METRICS
+    # ==================================================
+
     col1, col2, col3, col4 = st.columns(4)
-
-
-    # BMI
 
     with col1:
 
-        st.markdown(
-            f"""
-            <div class="metric-card">
-
-                <div class="metric-title">
-                    BMI
-                </div>
-
-                <div class="metric-value">
-                    {profile["bmi"]}
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+        st.metric(
+            "BMI",
+            profile["bmi"]
         )
 
         st.caption(
             f"Category: {profile['bmi_category']}"
         )
 
-
-    # BMR
-
     with col2:
 
-        st.markdown(
-            f"""
-            <div class="metric-card">
-
-                <div class="metric-title">
-                    BMR
-                </div>
-
-                <div class="metric-value">
-                    {profile["bmr"]} kcal
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+        st.metric(
+            "BMR",
+            f'{profile["bmr"]} kcal'
         )
-
-
-    # TDEE
 
     with col3:
 
-        st.markdown(
-            f"""
-            <div class="metric-card">
-
-                <div class="metric-title">
-                    TDEE
-                </div>
-
-                <div class="metric-value">
-                    {profile["tdee"]} kcal
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+        st.metric(
+            "TDEE",
+            f'{profile["tdee"]} kcal'
         )
-
-
-    # Daily calories
 
     with col4:
 
-        st.markdown(
-            f"""
-            <div class="metric-card">
-
-                <div class="metric-title">
-                    Daily Calories
-                </div>
-
-                <div class="metric-value">
-                    {profile["calorie_target"]} kcal
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+        st.metric(
+            "Daily Calories",
+            f'{profile["calorie_target"]} kcal'
         )
 
 
@@ -521,7 +341,6 @@ if calculate:
 
     col1, col2, col3 = st.columns(3)
 
-
     with col1:
 
         st.metric(
@@ -529,14 +348,12 @@ if calculate:
             f'{profile["protein_g"]} g'
         )
 
-
     with col2:
 
         st.metric(
             "🍚 Carbohydrates",
             f'{profile["carbs_g"]} g'
         )
-
 
     with col3:
 
@@ -559,10 +376,9 @@ if calculate:
 
 
     st.write(
-        "FitFuel AI analyzes nutrition data and "
-        "uses a machine-learning recommendation "
-        "engine to find foods that match your "
-        "calorie and protein requirements."
+        "FitFuel AI analyzes your nutrition requirements "
+        "and recommends foods that match your calorie "
+        "and protein targets."
     )
 
 
@@ -585,6 +401,10 @@ if calculate:
         recommendations = None
 
 
+    # ==================================================
+    # RECOMMENDATION RESULTS
+    # ==================================================
+
     if recommendations is not None:
 
         if recommendations.empty:
@@ -596,36 +416,90 @@ if calculate:
 
         else:
 
-            display_columns = [
-                "Food_Item",
-                "Category",
-                "Calories_per_100g",
-                "Protein_g",
-                "Fat_g",
-                "Carbs_g"
-            ]
+            for _, food in recommendations.iterrows():
+
+                col1, col2, col3 = st.columns(
+                    [4, 2, 1]
+                )
 
 
-            display_columns = [
-                column
-                for column in display_columns
-                if column in recommendations.columns
-            ]
+                # ------------------------------------------
+                # FOOD NAME
+                # ------------------------------------------
+
+                with col1:
+
+                    st.markdown(
+                        f"### 🥗 {food['Food_Item']}"
+                    )
+
+                    st.write(
+                        f"**Category:** "
+                        f"{food['Category']}"
+                    )
+
+                    if "Diet" in food.index:
+
+                        st.write(
+                            f"**Diet:** "
+                            f"{str(food['Diet']).replace('_', ' ').title()}"
+                        )
 
 
-            st.dataframe(
-                recommendations[
-                    display_columns
-                ],
-                use_container_width=True,
-                hide_index=True
-            )
+                # ------------------------------------------
+                # NUTRITION
+                # ------------------------------------------
+
+                with col2:
+
+                    st.write(
+                        f"🔥 **{food['Calories_per_100g']} kcal**"
+                    )
+
+                    st.write(
+                        f"💪 **{food['Protein_g']} g protein**"
+                    )
+
+                    st.write(
+                        f"🥑 **{food['Fat_g']} g fat**"
+                    )
+
+                    st.write(
+                        f"🍚 **{food['Carbs_g']} g carbs**"
+                    )
 
 
-            st.success(
-                "🤖 AI recommendation engine "
-                "successfully generated your food recommendations."
-            )
+                # ------------------------------------------
+                # FLIPKART BUTTON
+                # ------------------------------------------
+
+                with col3:
+
+                    flipkart_link = ""
+
+                    if "Flipkart_Link" in food.index:
+
+                        flipkart_link = food["Flipkart_Link"]
+
+
+                    if (
+                        pd.notna(flipkart_link)
+                        and str(flipkart_link).strip() != ""
+                    ):
+
+                        st.link_button(
+                            "🛒 Buy on Flipkart",
+                            str(flipkart_link)
+                        )
+
+                    else:
+
+                        st.caption(
+                            "No shopping link available"
+                        )
+
+
+                st.divider()
 
 
     # ==================================================
@@ -634,7 +508,7 @@ if calculate:
 
     st.markdown(
         '<div class="section-title">'
-        '🍽️ Today\'s Meal Plan'
+        "🍽️ Today's Meal Plan"
         '</div>',
         unsafe_allow_html=True
     )
@@ -660,11 +534,8 @@ if calculate:
     meal_icons = {
 
         "Breakfast": "🥣",
-
         "Lunch": "🍛",
-
         "Snack": "🍎",
-
         "Dinner": "🍽️"
 
     }
@@ -689,16 +560,12 @@ if calculate:
                         <div class="meal-card">
 
                         <div class="meal-title">
-
                         {meal_icons.get(
                             meal_name,
                             "🍽️"
                         )}
-
                         {meal_name}
-
                         </div>
-
 
                         <b>{meal["Food_Item"]}</b>
 
@@ -731,6 +598,24 @@ if calculate:
                         """,
                         unsafe_allow_html=True
                     )
+
+
+                    # Flipkart link for meal
+
+                    if "Flipkart_Link" in meal:
+
+                        meal_link = meal["Flipkart_Link"]
+
+
+                        if (
+                            pd.notna(meal_link)
+                            and str(meal_link).strip() != ""
+                        ):
+
+                            st.link_button(
+                                "🛒 Buy on Flipkart",
+                                str(meal_link)
+                            )
 
                 else:
 
@@ -785,7 +670,9 @@ if calculate:
                     )
 
 
-                    col1, col2, col3, col4, col5 = st.columns(5)
+                    col1, col2, col3, col4, col5 = st.columns(
+                        [3, 1.5, 1.5, 1.5, 1.5]
+                    )
 
 
                     with col1:
@@ -798,7 +685,6 @@ if calculate:
                     with col2:
 
                         st.write(
-                            f"Serving: "
                             f"{meal['Serving_g']} g"
                         )
 
@@ -819,9 +705,27 @@ if calculate:
 
                     with col5:
 
-                        st.write(
-                            f"{meal['Carbs_g']} g carbs"
-                        )
+                        # ----------------------------------
+                        # WEEKLY MEAL FLIPKART LINK
+                        # ----------------------------------
+
+                        meal_link = ""
+
+                        if "Flipkart_Link" in meal:
+
+                            meal_link = meal["Flipkart_Link"]
+
+
+                        if (
+                            pd.notna(meal_link)
+                            and str(meal_link).strip() != ""
+                        ):
+
+                            st.link_button(
+                                "🛒 Buy",
+                                str(meal_link)
+                            )
+
 
                 else:
 
@@ -843,6 +747,11 @@ if calculate:
         "engine • Personalized meal planning"
     )
 
+    st.caption(
+        "🛒 Product links open Flipkart search results. "
+        "Prices and availability are controlled by Flipkart."
+    )
+
 
 else:
 
@@ -860,20 +769,33 @@ else:
         <h2>🥗 Welcome to FitFuel AI</h2>
 
         <p style="font-size:18px;">
-
         Your personalized Indian nutrition
         recommendation system.
-
         </p>
 
         <p>
-
         Enter your information in the sidebar
         and click <b>Generate My Plan</b>.
-
         </p>
 
         </div>
         """,
         unsafe_allow_html=True
     )
+
+
+# ==================================================
+# AUTHOR NAME
+# ==================================================
+# IMPORTANT:
+# This is OUTSIDE the if/else block.
+# Therefore it appears on the generated dashboard too.
+
+st.markdown(
+    """
+    <div class="author-name">
+        Abhirudra Mani Yadav
+    </div>
+    """,
+    unsafe_allow_html=True
+)
