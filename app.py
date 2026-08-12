@@ -81,51 +81,24 @@ st.markdown(
         font-weight: 700;
     }
 
-    /* ----------------------------------------------
-       AUTHOR NAME
-       ---------------------------------------------- */
+    /* ==================================================
+       AUTHOR NAME - BOTTOM RIGHT
+       ================================================== */
 
     .author-name {
         position: fixed;
         right: 15px;
-        bottom: 8px;
+        bottom: 10px;
         font-size: 12px;
         font-weight: 500;
         color: #555555;
-        opacity: 0.65;
-        z-index: 9999;
+        opacity: 0.70;
+        z-index: 999999;
         pointer-events: none;
-    }
-
-    /* ----------------------------------------------
-       DARK DUMBBELL WATERMARK
-       ---------------------------------------------- */
-
-    .dumbbell-watermark {
-        position: fixed;
-        right: 25px;
-        bottom: 35px;
-        font-size: 90px;
-        color: #333333;
-        opacity: 0.035;
-        z-index: 0;
-        pointer-events: none;
-        user-select: none;
+        white-space: nowrap;
     }
 
     </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
-# ==================================================
-# BACKGROUND WATERMARK
-# ==================================================
-
-st.markdown(
-    """
-    <div class="dumbbell-watermark">🏋️</div>
     """,
     unsafe_allow_html=True
 )
@@ -136,6 +109,7 @@ st.markdown(
 # ==================================================
 
 try:
+
     foods = load_food_data()
 
 except Exception as e:
@@ -305,6 +279,7 @@ if calculate:
             f"Category: {profile['bmi_category']}"
         )
 
+
     with col2:
 
         st.metric(
@@ -312,12 +287,14 @@ if calculate:
             f'{profile["bmr"]} kcal'
         )
 
+
     with col3:
 
         st.metric(
             "TDEE",
             f'{profile["tdee"]} kcal'
         )
+
 
     with col4:
 
@@ -341,6 +318,7 @@ if calculate:
 
     col1, col2, col3 = st.columns(3)
 
+
     with col1:
 
         st.metric(
@@ -348,12 +326,14 @@ if calculate:
             f'{profile["protein_g"]} g'
         )
 
+
     with col2:
 
         st.metric(
             "🍚 Carbohydrates",
             f'{profile["carbs_g"]} g'
         )
+
 
     with col3:
 
@@ -532,12 +512,10 @@ if calculate:
 
 
     meal_icons = {
-
         "Breakfast": "🥣",
         "Lunch": "🍛",
         "Snack": "🍎",
         "Dinner": "🍽️"
-
     }
 
 
@@ -786,10 +764,8 @@ else:
 
 # ==================================================
 # AUTHOR NAME
+# ALWAYS VISIBLE - BOTTOM RIGHT
 # ==================================================
-# IMPORTANT:
-# This is OUTSIDE the if/else block.
-# Therefore it appears on the generated dashboard too.
 
 st.markdown(
     """
