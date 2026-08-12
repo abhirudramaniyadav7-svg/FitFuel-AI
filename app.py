@@ -767,8 +767,28 @@ else:
 # ALWAYS VISIBLE - BOTTOM RIGHT
 # ==================================================
 
+# ==================================================
+# AUTHOR NAME - BOTTOM CENTER
+# ==================================================
+
 st.markdown(
     """
+    <style>
+    .author-name {
+        position: fixed;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        font-weight: 500;
+        color: #555555;
+        opacity: 0.70;
+        z-index: 999999;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+    </style>
+
     <div class="author-name">
         Abhirudra Mani Yadav
     </div>
